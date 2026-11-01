@@ -2,7 +2,6 @@ print(f"{"="*100}\n{'PERSONAL EXPENSE TRACKER':^60}\n{"="*100}")
 expense_name=[]
 amount_spent=[]
 expense_catagory=[]
-total_expense=0
 while 0<1:
     print(f"{1}.Add an expense")
     print(f"{2}.Display all expenses")
@@ -33,23 +32,26 @@ while 0<1:
                 for index,(ex_na,ex_am,ex_cat) in enumerate(zip(expense_name,amount_spent,expense_catagory),start=1):
                     print(f"{index:<15}"
                           f"{ex_na:<40}"
-                          f"{ex_am:<25}"
+                          f"{round(ex_am,2):<25}"
                           f"{ex_cat:<40}"
                           )
-                    print("="*100)
+                print("="*100)
         elif choice==3:
-            for i in amount_spent:
-                total_expense+=i
-            print(f"Total expenses:{total_expense:.2f}Birr")
+            if len(amount_spent)==0:
+                print(f"You got no expense yet,thank you!")
+            else:    
+                total_expense=0
+                for i in amount_spent:
+                    total_expense+=i
+                print(f"Total expenses:{total_expense:.2f}Birr")
         elif choice==4:
-            a=amount_spent.index(max(amount_spent))
-            y=expense_name[a]
-            z=expense_catagory[a]
-            b=amount_spent.index(min(amount_spent))
-            x=expense_name[b]
-            c=expense_catagory[b]
-            print(f"Highest expense:{y}-{z}-{max(amount_spent):.2f}Birr")
-            print(f"Lowest expense:{x}-{c}-{min(amount_spent):.2f}Birr")
+            if len(amount_spent)==0:
+                print(f"You got no expense yet,thank you!")
+            else:
+                y,z,c=max(zip(amount_spent,expense_name,expense_catagory))
+                x,b,a=min(zip(amount_spent,expense_name,expense_catagory))
+                print(f"Highest expense:{c}-{z}-{y:.2f}Birr")
+                print(f"Lowest expense:{a}-{b}-{x:.2f}Birr")
         else:
             print("Exiting the program.....Thank you.")
             break  
